@@ -14,7 +14,7 @@ sudo systemctl enable httpd
 sudo systemctl start httpd
 
 echo "Removing old site folder (if exists)..."
-CLONE_DIR="/var/www/html/site"
+CLONE_DIR="/var/www/html"
 sudo rm -rf "$CLONE_DIR"
 
 echo "Cloning GitHub repository..."
@@ -32,6 +32,6 @@ echo "Restarting Apache..."
 sudo systemctl restart httpd
 
 echo "Sending POST request..."
-curl -X POST -d "nome=Matheus de Paula Vieira" https://difusaotech.com.br/lab/aws/index.php
+# curl -X POST -d "nome=Matheus de Paula Vieira" https://difusaotech.com.br/lab/aws/index.php
 
 echo "Script successfully executed!"
