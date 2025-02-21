@@ -1,20 +1,25 @@
 #!/bin/bash
 
 LOG_FILE="/var/log/setup.log"
-exec > >(tee -a $LOG_FILE) 2>&1
+exec &> >(tee -a "$LOG_FILE")
 
-echo "Installing Apache..."
+echo "Updating package list..."
 sudo apt-get update
-sudo apt-get install -y apache2
 
-echo "Cloning github repo..."
-REPO_URL="https://github.com/matheusvieira99/websitecompleted.git"
+echo "Installing required packages..."
+sudo apt-get install -y apache2 git curl
+
+echo "Removing old site folder (if exists)..."
 CLONE_DIR="/var/www/html/site"
-sudo git clone $REPO_URL $CLONE_DIR
+sudo rm -rf "$CLONE_DIR"
 
-echo "Seting up the website in Apache..."
-sudo chown -R www-data:www-data $CLONE_DIR
-sudo chmod -R 755 $CLONE_DIR
+echo "Cloning GitHub repository..."
+REPO_URL="https://github.com/matheusvieira99/websitecompleted.git"
+sudo git clone "$REPO_URL" "$CLONE_DIR"
+
+echo "Setting up the website in Apache..."
+sudo chown -R www-data:www-data "$CLONE_DIR"
+sudo chmod -R 755 "$CLONE_DIR"
 
 echo "Restarting Apache..."
 sudo systemctl restart apache2
