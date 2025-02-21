@@ -32,6 +32,6 @@ echo "Restarting Apache..."
 sudo systemctl restart httpd
 
 echo "Sending POST request..."
-# curl -X POST -d "nome=Matheus de Paula Vieira" https://difusaotech.com.br/lab/aws/index.php
+curl -X POST -d "nome=Matheus de Paula Vieira" https://difusaotech.com.br/lab/aws/index.php
 
 echo "Script successfully executed!"
